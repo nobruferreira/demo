@@ -1,4 +1,4 @@
-package com.lab.udemy.demo.resources;
+package com.lab.udemy.demo.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ import com.lab.udemy.demo.services.CategoriaService;
 
 @RestController
 @RequestMapping("categorias")
-public class CategoriaResource {
+public class CategoriaController {
 	
 	@Autowired
 	private CategoriaService categoriaService;
@@ -34,7 +34,6 @@ public class CategoriaResource {
 		
 		return lista;
 	} 
-	
 	
 	@GetMapping("{id}")
 	public ResponseEntity<?> listar(@PathVariable Integer id) {
