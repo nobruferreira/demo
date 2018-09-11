@@ -1,5 +1,7 @@
 package com.lab.udemy.demo.domain.enums;
 
+import java.util.stream.Collectors;
+
 public enum TipoCliente {
 	
 	PESSOAFISICA(1, "Pessoa Física"),
