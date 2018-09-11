@@ -13,6 +13,7 @@ import com.lab.udemy.demo.domain.Cidade;
 import com.lab.udemy.demo.domain.Cliente;
 import com.lab.udemy.demo.domain.Endereco;
 import com.lab.udemy.demo.domain.Estado;
+import com.lab.udemy.demo.domain.ItemPedido;
 import com.lab.udemy.demo.domain.Pagamento;
 import com.lab.udemy.demo.domain.PagamentoBoleto;
 import com.lab.udemy.demo.domain.PagamentoCartao;
@@ -25,6 +26,7 @@ import com.lab.udemy.demo.repositories.CidadeRepository;
 import com.lab.udemy.demo.repositories.ClienteRepository;
 import com.lab.udemy.demo.repositories.EnderecoRepository;
 import com.lab.udemy.demo.repositories.EstadoRepository;
+import com.lab.udemy.demo.repositories.ItemPedidoRepository;
 import com.lab.udemy.demo.repositories.PagamentoRepository;
 import com.lab.udemy.demo.repositories.PedidoRepository;
 import com.lab.udemy.demo.repositories.ProdutoRepository;
@@ -48,6 +50,8 @@ public class DemoApplication implements CommandLineRunner{
 	private PedidoRepository pedidoRepository;
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
@@ -110,5 +114,18 @@ public class DemoApplication implements CommandLineRunner{
 		
 		pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2));
 		pagamentoRepository.saveAll(Arrays.asList(pgto1, pgto2));
+		
+	    ItemPedido itemPedido1 = new ItemPedido(pedido1, prod1, 0.00, 1, 2000.00);
+	    ItemPedido itemPedido2 = new ItemPedido(pedido1, prod3, 0.00, 2, 80.00);
+	    ItemPedido itemPedido3 = new ItemPedido(pedido2, prod2, 100.00, 1, 800.00);
+	    
+	    pedido1.getItens().addAll(Arrays.asList(itemPedido1, itemPedido2));
+	    pedido2.getItens().addAll(Arrays.asList(itemPedido3));
+	    
+	    prod1.getItens().addAll(Arrays.asList(itemPedido1));
+	    prod2.getItens().addAll(Arrays.asList(itemPedido3));
+	    prod3.getItens().addAll(Arrays.asList(itemPedido2));
+	    
+	    itemPedidoRepository.saveAll(Arrays.asList(itemPedido1, itemPedido2, itemPedido3));
 	}
 }
